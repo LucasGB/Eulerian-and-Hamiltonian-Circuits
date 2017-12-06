@@ -1,4 +1,5 @@
 from graph1 import Graph
+from hamiltonian import *
 import hierholzer as h
 
 
@@ -14,14 +15,24 @@ if __name__ == '__main__':
 				   (2, 1), (2, 3), (2, 4),
 				   (3, 1), (3, 2), (3, 4),
 				   (4, 2), (4,3)}
-	hey = {(0, 1), (0, 2), (0, 3),
-		   (1, 0), (1, 2),
-		   (2, 0), (2, 1),
-		   (3, 0), (3, 4)}
+	
+	euler_circuit = {(0, 1), (0, 2), (0, 3), (0, 4),
+		   			 (1, 0), (1, 2),
+		    		 (2, 0), (2, 1),
+		   			 (3, 0), (3, 4),
+		   			 (4, 0), (4, 3)}
 	
 	test2 = {(1,2), (1,3), (1,4), (1,5), (2,3), (2,1), (3, 4), (3, 1)}
-	path = h.eulerian_path(hey)
-	print path
+	
+	graph = Graph(euler_circuit)
+	graph.print_graph()
+
+	#print 'Heulerian Path:', h.eulerian_path(eurilian_trail)
+	#print 'Hamiltonian:', bfs(graph, 1, 1, [])
+	bfs(graph, 0, 0, {0})
+
+
+
 	#g = Graph({(1,2), (1,3), (1,4), (1,5), (2,3), (2,1), (3, 4), (3, 1)})
 	#g.print_graph()
 	
