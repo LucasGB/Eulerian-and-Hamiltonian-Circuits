@@ -52,8 +52,12 @@ def bfs(graph, start, goal, path):
         for node in graph.out_neighbours(current_node) - set(path):
             path.add(node)
             bfs(graph, node, goal, path)
-    #else:
-        #print 'path
+    elif(len(path) == graph.get_size()):
+        print 'dasdadasdads',len(path)
+        return path
+    else:
+        print 'dasda',len(path)
+        return None
         #bfs(graph, node, goal, path)
 
 #        if(node == goal):

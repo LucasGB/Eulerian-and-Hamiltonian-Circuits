@@ -17,6 +17,9 @@ class Graph:
         """Iterating over the graph yields its nodes."""
         return iter(self._nodes)
 
+    def get_size(self):
+        return  len(self._nodes)
+
     def add_edge(self, m, n):
         """Add an edge from m to n."""
         self._nodes.add(m)

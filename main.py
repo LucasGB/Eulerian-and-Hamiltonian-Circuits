@@ -18,18 +18,27 @@ if __name__ == '__main__':
 	
 	euler_circuit = {(0, 1), (0, 2), (0, 3), (0, 4),
 		   			 (1, 0), (1, 2),
-		    		 (2, 0), (2, 1),
+		    		 (2, 0), (2, 1), (2, 5),
 		   			 (3, 0), (3, 4),
 		   			 (4, 0), (4, 3)}
+
+	hamiltonian_circuit = {(0, 2), (0, 4),
+		   			 (1, 3), (1, 4),
+		    		 (2, 0), (2, 3),
+		   			 (3, 1), (3, 2),
+		   			 (4, 0), (4, 1)}
+
 	
 	test2 = {(1,2), (1,3), (1,4), (1,5), (2,3), (2,1), (3, 4), (3, 1)}
 	
-	graph = Graph(euler_circuit)
+	graph = Graph(hamiltonian_circuit)
+
 	graph.print_graph()
 
 	#print 'Heulerian Path:', h.eulerian_path(eurilian_trail)
 	#print 'Hamiltonian:', bfs(graph, 1, 1, [])
-	bfs(graph, 0, 0, {0})
+	f_path = bfs(graph, 0, 0, {0})
+	print 'Final path:', f_path
 
 
 
