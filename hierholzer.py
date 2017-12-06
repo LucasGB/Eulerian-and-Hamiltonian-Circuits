@@ -2,17 +2,15 @@ from collections import deque
 from graph1 import Graph
 from collections import defaultdict
 
+"""Return any item from iterable, or raise StopIteration if empty."""
 def pick_any(iterable):
-    """Return any item from iterable, or raise StopIteration if empty."""
     return next(iter(iterable))
 
 class NoEulerianPath(Exception):
     """Exception raised when there is no Eulerian path."""
 
+"""Return an Eulerian path in the directed graph with the given iterable of edges, or raise NoEulerianPath if there is no such path."""
 def eulerian_path(edges):
-    """Return an Eulerian path in the directed graph with the given
-    iterable of edges, or raise NoEulerianPath if there is no such path.
-    """
     graph = Graph(edges)
 
     # Mapping from surplus of out-edges over in-edges to list of nodes

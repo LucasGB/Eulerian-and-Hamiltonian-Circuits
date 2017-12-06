@@ -1,69 +1,32 @@
-def find_all_paths(graph, start, end, path=[]):
-        #http://www.python.org/doc/essays/graphs/
-        path = path + [start]
-        if start == end:
-            return [path]
-        if not graph.has_key(start):
-            return []
-        paths = []
-        for node in graph[start]:
-            if node not in path:
-                newpaths = find_all_paths(graph, node, end, path)
-                for newpath in newpaths:
-                    paths.append(newpath)
-        print paths
-        return paths
+import random
 
-def find_paths(graph):
-    cycles=[]
-    for startnode in graph:
-        for endnode in graph:
-            print 'start', startnode
-            print 'end', endnode
-            newpaths = find_all_paths(graph, startnode, endnode)
-            print newpaths
-            for path in newpaths:
-                print 'aqui',path
-                if (len(path)==len(graph)):                    
-                    cycles.append(path)
-    return cycles
+"""Return any item from iterable, or raise StopIteration if empty."""
+def pick_any(iterable):
+    return next(iter(iterable))
 
-def find_cycle(graph):
-    cycles=[]
-    for startnode in graph:
-        for endnode in graph:
-            newpaths = find_all_paths(graph, startnode, endnode)
-            for path in newpaths:
-                if (len(path)==len(graph)):
-                    if path[0] in graph[path[len(graph)-1]]:
-                        #print path[0], graph[path[len(graph)-1]]
-                        path.append(path[0])
-                        cycles.append(path)
-    return cycles
-
-def bfs(graph, start, goal, path):
+"""Performs a recursive Bread-First-Search on the graph structure while keeping an unvisited list to avoid visiting vertexes more than once. If the size of the path discovered by the algorithm is equal to the graph's number of vertexes and the last visited vertex has transition to the root, then a hamiltonian circuit has been identified."""
+def BFS(graph, start, goal, path):
     current_node = start
 
     unvisited = graph.out_neighbours(current_node) - set(path)
-    print 'PATH:', path
-    print 'Unvisited:', unvisited
 
     if(len(unvisited) != 0):
         for node in graph.out_neighbours(current_node) - set(path):
-            path.add(node)
-            bfs(graph, node, goal, path)
-    elif(len(path) == graph.get_size()):
-        print 'dasdadasdads',len(path)
+            path.append(node)
+            return BFS(graph, node, goal, path)
+
+    elif(len(path) == graph.get_size() and goal in graph.out_neighbours(current_node)):
+        path.append(goal)
         return path
+
     else:
-        print 'dasda',len(path)
         return None
-        #bfs(graph, node, goal, path)
 
-#        if(node == goal):
-#            path.append(node)
-#            print path
-#        else:
-#            bfs(graph, node, goal, path)
+"""Selects a random vertex to start the algorithm and calls BFS"""
+def hamiltonian(graph):
+    #start = pick_any(graph)
+    start = next(iter(graph))
+    end = start
+    path = [start]    
 
-    
+    return BFS(graph, start, end, path)

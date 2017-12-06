@@ -20,6 +20,9 @@ class Graph:
     def get_size(self):
         return  len(self._nodes)
 
+    def get_edge_size(self):
+        return len(self.edges)
+
     def add_edge(self, m, n):
         """Add an edge from m to n."""
         self._nodes.add(m)
