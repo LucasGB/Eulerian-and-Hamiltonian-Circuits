@@ -1,4 +1,4 @@
-from graph1 import Graph
+from graph import Graph
 from collections import defaultdict
 
 """Return any item from iterable, or raise StopIteration if empty."""
@@ -26,10 +26,10 @@ def burn_edge(graph, u, v):
         graph.remove_edge(v, u)
         return v
 
-""""""
+""" Visits and deletes all edges until """
 def fleury(edges):
     graph = Graph(edges)
-    
+
     # Mapping from surplus of out-edges over in-edges to list of nodes
     # with that surplus.
     surplus = defaultdict(list)
@@ -60,22 +60,24 @@ def fleury(edges):
 
     while(graph.out_degree(node)):
         
+        # Continuously deletes edges between visited neighbours and appends the path that is being taken
         neighbour = None
         while(True):
             neighbour = pick_any(graph.out_neighbours(node))
 
+            # Visits a bridge if, and only if, the graph is made up by bridges only
             if(is_bridge(graph, neighbour) and bridges_only(graph)):
                 path.append(burn_edge(graph, node, neighbour))
                 break
             path.append(burn_edge(graph, node, neighbour))
             node = neighbour            
 
+        # Continuously burns up the "bridges" until the graph has no edges left saving the path that is being taken
         while(is_bridge(graph, neighbour) and bridges_only(graph)):            
             neighbour = pick_any(graph.out_neighbours(neighbour))
             path.append(burn_edge(graph, node, neighbour))
             if(len(path) == graph.get_edge_size()):
                 break
         break
-
 
     return path

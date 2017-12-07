@@ -1,5 +1,5 @@
 from collections import deque
-from graph1 import Graph
+from graph import Graph
 from collections import defaultdict
 
 """Return any item from iterable, or raise StopIteration if empty."""
@@ -57,6 +57,7 @@ def eulerian_path(edges):
         while graph.out_degree(node):
             neighbour = pick_any(graph.out_neighbours(node))
             graph.remove_edge(node, neighbour)
+            graph.remove_edge(neighbour, node)
             if graph.out_degree(node) == 0:
                 unfinished.remove(node)
             path.append(neighbour)
