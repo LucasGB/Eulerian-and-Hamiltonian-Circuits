@@ -1,7 +1,7 @@
 from graph import Graph
 from hamiltonian import *
 from fleury import *
-import hierholzer as h
+from hierholzer import *
 
 if __name__ == '__main__':
 
@@ -34,13 +34,7 @@ if __name__ == '__main__':
 				  ('R', 'O'), ('R', 'T'),
 				  ('T', 'R'), ('T', 'O')}
 
-	graph = Graph(hamiltonian_circuit)	
 
-
-	hamiltonian_path = hamiltonian(graph)
-	if(hamiltonian_path):
-		print 'Hamiltonian:', hamiltonian_path
-	eulerian = h.eulerian_path(hierholzer)
-	print 'Hierholzer:', eulerian
-
+	print 'Hamiltonian:', hamiltonian(hamiltonian_circuit)
 	print 'Fleury:', fleury(fleury_circuit)
+	print 'Hierholzer:', eulerian_path(hierholzer)

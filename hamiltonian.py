@@ -1,4 +1,5 @@
 import random
+from graph import Graph
 
 """Return any item from iterable, or raise StopIteration if empty."""
 def pick_any(iterable):
@@ -8,13 +9,16 @@ def pick_any(iterable):
 def BFS(graph, start, goal, path):
     current_node = start
 
+    # Removes transitions to vertices that have been visited
     unvisited = graph.out_neighbours(current_node) - set(path)
 
+    # If there are vertices that haven't been visited yet
     if(len(unvisited) != 0):
         for node in graph.out_neighbours(current_node) - set(path):
             path.append(node)
             return BFS(graph, node, goal, path)
 
+    # If the stop criteria has been reached, return the path
     elif(len(path) == graph.get_size() and goal in graph.out_neighbours(current_node)):
         path.append(goal)
         return path
@@ -23,8 +27,9 @@ def BFS(graph, start, goal, path):
         return None
 
 """Selects a random vertex to start the algorithm and calls BFS"""
-def hamiltonian(graph):
-    #start = pick_any(graph)
+def hamiltonian(edges):
+    graph = Graph(edges)
+
     start = next(iter(graph))
     end = start
     path = [start]    
