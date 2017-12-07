@@ -13,16 +13,23 @@ def is_bridge(graph, node):
         return True
     return False
 
-def is_last_bridge(graph):
+"""Verifies if graph is made up by bridges only"""
+def bridges_only(graph):
     for node in graph:
-        if(node.out_degree > 1):
+        if(graph.out_degree(node) > 1):
             return False
     return True
 
+"""Removes the edge from the graph"""
+def burn_edge(graph, u, v):
+        graph.remove_edge(u, v)
+        graph.remove_edge(v, u)
+        return v
+
+""""""
 def fleury(edges):
     graph = Graph(edges)
-    graph.print_graph()
-
+    
     # Mapping from surplus of out-edges over in-edges to list of nodes
     # with that surplus.
     surplus = defaultdict(list)
@@ -49,8 +56,6 @@ def fleury(edges):
     else:
         node = pick_any(odd_degree_nodes)
     
-    print 'start: ',node
-    
     path = [node]
 
     while(graph.out_degree(node)):
@@ -58,14 +63,16 @@ def fleury(edges):
         neighbour = None
         while(True):
             neighbour = pick_any(graph.out_neighbours(node))
-            #print neighbour
-            if(is_bridge(graph, neighbour) and is_last_bridge()):
-                print is_bridge(graph, neighbour)
-                break
 
-        while(is_bridge(graph, neighbour) and is_last_bridge(graph)):
-            path.append(neighbour)
-            neighbour = graph.pick_any(graph.out_neighbours(neighbour))
+            if(is_bridge(graph, neighbour) and bridges_only(graph)):
+                path.append(burn_edge(graph, node, neighbour))
+                break
+            path.append(burn_edge(graph, node, neighbour))
+            node = neighbour            
+
+        while(is_bridge(graph, neighbour) and bridges_only(graph)):            
+            neighbour = pick_any(graph.out_neighbours(neighbour))
+            path.append(burn_edge(graph, node, neighbour))
             if(len(path) == graph.get_edge_size()):
                 break
         break

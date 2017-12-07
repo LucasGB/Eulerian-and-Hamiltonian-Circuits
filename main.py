@@ -36,15 +36,8 @@ if __name__ == '__main__':
 	eulerian = h.eulerian_path(eurilian_trail)
 	print 'Heulerian Path:', eulerian
 	
-	#                                G    start  end  visited
 	hamiltonian_path = hamiltonian(graph)
 	if(hamiltonian_path):
 		print 'Hamiltonian:', hamiltonian_path
 
-	print fleury(fleury_circuit)
-
-
-	#g = Graph({(1,2), (1,3), (1,4), (1,5), (2,3), (2,1), (3, 4), (3, 1)})
-	#g.print_graph()
-	
-	#print 'dmas,', max(graph.out_neighbours(1), key=graph.degree)
+	print 'Fleury:', fleury(fleury_circuit)
